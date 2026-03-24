@@ -114,7 +114,8 @@ class canal{
             }
         }
 
-        float proximoCanal(){
+        float proximoCanal(float& numeroAnterior){
+            numeroAnterior = this->numero; 
             this->numero++;
             return this->numero;
         }
@@ -132,31 +133,31 @@ class canalAnterior{
         float numeroAnterior;
 
         canalAnterior(float numeroAnterior){
-            if(numeroAnterior > 0){
-                this->numeroAnterior = numeroAnterior;
-            } else {
-                this->numeroAnterior = 1;
-            }
+            this->numeroAnterior = (numeroAnterior > 0) ? numeroAnterior : 1;
         }
 
-        float voltarCanal(){
-            if(this->numeroAnterior > 1){
-                this->numeroAnterior--;
-            }
-            return this->numeroAnterior;
+        float voltarCanal(float& canalAtual){
+            float temp = canalAtual;
+            canalAtual = this->numeroAnterior;
+            this->numeroAnterior = temp;
+            return canalAtual;
         }
-
 };
 
 int main(){
     marca marca1("Sony", "Japão");
     modelo modelo1(2020, 12345, 55.0);
-    estaLigada estaLigada1(true);
+    estaLigada estaLigada1(false);
     volume volume1(50);
     estaMutada estaMutada1(false);
-    canal canal1(5.0);
-    canalAnterior canalAnterior1(4.0);
+    canal canal1(5);
+    canalAnterior canalAnterior1(4);
 
+    estaLigada1.ligar();
+    canal1.proximoCanal(canalAnterior1.numeroAnterior); 
+    canalAnterior1.voltarCanal(canal1.numero);
+    volume1.aumentarVolume();
+    estaMutada1.mutar();
 
     return 0;
 }
