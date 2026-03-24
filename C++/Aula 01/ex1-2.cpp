@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <utility>  // pair
+#include <utility>
 
 class ImagemDigital {
     private:
