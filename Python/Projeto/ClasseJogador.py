@@ -19,15 +19,33 @@ class Jogador:
     def __init__(self):
         self.__nome = "Hagnar"
         self.__classe = "Arqueiro"
-        self.__nivel = 10
         self.__vida = 1000
-        self.__mana = 500
+        self.__nivel = 1
+        self.__almas = 1
+        self.__vitalidade = 10
+        self.__conhecimento = 10
+        self.__fortitude = 10
+        self.__forca = 50
+        self.__destreza = 100
+        self.__resistencia = 500
+        self.__inteligencia = 500
+        self.__fe = 100
 
     def __str__(self):
         display = 'O nome do jogador é:' + str(self.__nome) + '\n'
         display += 'Sua classe é: ' + str(self.__classe) + '\n'
-        display += 'Seu nivel atual é: ' + str(self.__nivel) + '\n'
-        display += 'Sua vida atual é: ' + str(self.__vida)
+        display += 'Seu nivel de vida atual é: ' + str(self.__vida) + '\n'
+        display += 'Seu nivel de experiencia atual é: ' + str(self.__nivel) + '\n'
+        display += 'Seu nivel de almas atual é: ' + str(self.__almas) + '\n'
+        display += 'Seu nivel de vitalidade atual é: ' + str(self.__vitalidade) + '\n'
+        display += 'Seu nivel de conhecimento atual é: ' + str(self.__conhecimento) + '\n'
+        display += 'Seu nivel de fortitude atual é: ' + str(self.__fortitude) + '\n'
+        display += 'Seu nivel de força atual é: ' + str(self.__forca) + '\n'
+        display += 'Seu nivel de destreza atual é: ' + str(self.__destreza) + '\n'
+        display += 'Seu nivel de resistencia atual é: ' + str(self.__resistencia) + '\n'
+        display += 'Seu nivel de Inteligencia atual é: ' + str(self.__inteligencia) + '\n'
+        display += 'Seu nivel de Fé atual é: ' + str(self.__fe) + '\n'
+        
         return display
 
     
