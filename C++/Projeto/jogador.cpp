@@ -4,7 +4,7 @@
 //vou copiar os atributos do dark souls 1, que é o melhor rpg de todos kkkkkkkkk
 
 class Jogador{
-    public:
+    private:
         std::string nome;
         std::string classe;
         int vida; //upa com vitalidade
@@ -22,6 +22,8 @@ class Jogador{
 
         //implementar depois os sub-atributos
 
+
+    public:
         Jogador(std::string nome, std::string classe, int nivel, int almas, int vitalidade, 
             int conhecimento, int fortitude, int forca, int destreza, int resistencia, int inteligencia, int fe){
             this->nome = nome;
