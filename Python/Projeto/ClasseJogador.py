@@ -14,42 +14,59 @@
 #inteligencia; //atributo para usar sorceries/sortilégios, nota de corte pra magias
 #fe; //atributo pra usar milagres (e acho que tem uma piromância que tem dano base de fé)
 
+
 class Jogador:
+    def __init__(self, nome, classe, vida, stamina, nivel, almas, vitalidade, conhecimento, fortitude, forca, destreza, resistencia, inteligencia, fe):
+        self.nome = nome
+        self.classe = classe
+        self.vida = vida                    # upa com vitalidade
+        self.stamina = stamina              # upa com fortitude! (Resistance no DS1 só aumenta defesa de poison, é meme)
+        self.nivel = nivel                  # nivel aumenta conforme upamos os atributos abaixo
+        self.almas = almas                  # moeda de compra
+        self.vitalidade = vitalidade        # quant de hp
+        self.conhecimento = conhecimento    # quant de espaços para alocar magias
+        self.fortitude = fortitude          # quant de peso e stamina
+        self.forca = forca                  # quant de dano causado com armas pesadas
+        self.destreza = destreza            # quant de dano causado com armas rapidas
+        self.resistencia = resistencia      # defesa base (status inútil no DS1)
+        self.inteligencia = inteligencia    # atributo para usar sorceries/sortilégios
+        self.fe = fe                        # atributo pra usar milagres
 
-    def __init__(self):
-        self.__nome = "Hagnar"
-        self.__classe = "Arqueiro"
-        self.__vida = 1000
-        self.__nivel = 1
-        self.__almas = 1
-        self.__vitalidade = 10
-        self.__conhecimento = 10
-        self.__fortitude = 10
-        self.__forca = 50
-        self.__destreza = 100
-        self.__resistencia = 500
-        self.__inteligencia = 500
-        self.__fe = 100
+    def exibir_status(self):
+        print(f"Nome: {self.nome}")
+        print(f"Classe: {self.classe}")
+        print(f"Nivel: {self.nivel}")
+        print(f"Vida: {self.vida}")
+        print(f"Stamina: {self.stamina}")
+        print(f"Almas: {self.almas}")
+        print(f"Vitalidade: {self.vitalidade}")
+        print(f"Conhecimento: {self.conhecimento}")
+        print(f"Fortitude: {self.fortitude}")
+        print(f"Forca: {self.forca}")
+        print(f"Destreza: {self.destreza}")
+        print(f"Resistencia: {self.resistencia}")
+        print(f"Inteligencia: {self.inteligencia}")
+        print(f"Fe: {self.fe}")
 
-    def __str__(self):
-        display = 'O nome do jogador é:' + str(self.__nome) + '\n'
-        display += 'Sua classe é: ' + str(self.__classe) + '\n'
-        display += 'Seu nivel de vida atual é: ' + str(self.__vida) + '\n'
-        display += 'Seu nivel de experiencia atual é: ' + str(self.__nivel) + '\n'
-        display += 'Seu nivel de almas atual é: ' + str(self.__almas) + '\n'
-        display += 'Seu nivel de vitalidade atual é: ' + str(self.__vitalidade) + '\n'
-        display += 'Seu nivel de conhecimento atual é: ' + str(self.__conhecimento) + '\n'
-        display += 'Seu nivel de fortitude atual é: ' + str(self.__fortitude) + '\n'
-        display += 'Seu nivel de força atual é: ' + str(self.__forca) + '\n'
-        display += 'Seu nivel de destreza atual é: ' + str(self.__destreza) + '\n'
-        display += 'Seu nivel de resistencia atual é: ' + str(self.__resistencia) + '\n'
-        display += 'Seu nivel de Inteligencia atual é: ' + str(self.__inteligencia) + '\n'
-        display += 'Seu nivel de Fé atual é: ' + str(self.__fe) + '\n'
-        
-        return display
 
-    
 if __name__ == "__main__":
-    jogador = Jogador()
-    print(type(jogador))
-    print(jogador)
+    # Criando um jogador
+    jogador1 = Jogador(
+        nome="Hargon",
+        classe="Arqueiro",
+        vida=1000,
+        stamina=100,
+        nivel=10,
+        almas=10,
+        vitalidade=10,
+        conhecimento=10,
+        fortitude=10,
+        forca=10,
+        destreza=10,
+        resistencia=10,
+        inteligencia=10,
+        fe=10
+    )
+
+    jogador1.exibir_status()
+    
