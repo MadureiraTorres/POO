@@ -1,18 +1,18 @@
-#Projeto: Classe de Jogador de RPG
-#nome;
-#classe;
-#vida; //upa com vitalidade
-#stamina; //upa com resistência ou fortitude, não sei ainda
-#nivel; //nivel aumenta conforme upamos os atributos abaixo
-#almas; //moeda de compra e que também serve para upar os atributos 
-#vitalidade; //quant de hp, quando eu abrir o jogo de novo eu vejo o que de sub-atributo upa com ele
-#conhecimento; //quant de espaços para alocar magias, quando eu abrir o jogo de novo eu vejo o que de sub-atributo upa com ele
-#fortitude; //quant de peso que o jogador pode carregar, responsavel tbm pelo poise, e a stamina é aqui ou na resistencia
-#forca; //quant de dano causado com armas que usam esse atributo, serve como nota de corte pra usar armas de força
-#destreza; //quant de dano causado com armas que usam esse atributo, serve como nota de corte pra usar armas de dex
-#resistencia; //não me lembro se é aqui a stamina ou na fortitude
-#inteligencia; //atributo para usar sorceries/sortilégios, nota de corte pra magias
-#fe; //atributo pra usar milagres (e acho que tem uma piromância que tem dano base de fé)
+# Projeto: Classe de Jogador de RPG inspirado em DS
+# nome: Nome do Jogador
+# classe: Classe inicial (influencia apenas os atributos iniciais e o equipamento)
+# vida: Atributo HP (pontos de vida), aumenta principalmente com Vitalidade
+# stamina: Barra de energia; em DS1, ela aumenta exclusivamente com Fortitude
+# nivel: Nível de Alma (Soul Level); aumenta a cada ponto gasto em atributos
+# almas: Moeda principal para comércio e para subir de nível nos Bonfires
+# vitalidade: Aumenta o HP máximo e a resistência física global
+# conhecimento: Aumenta o número de slots (espaços) para equipar Magias, Milagres e Piromancias
+# fortitude: Aumenta a Stamina, a Carga de Equipamento (Equip Load) e a Resistência a Sangramento
+# forca: Requisito para armas pesadas; aumenta o dano de armas com escalonamento em Força
+# destreza: Requisito para armas ágeis; aumenta o dano de armas "Dex" e reduz o tempo de cast de magias
+# resistencia: Aumenta a defesa física e a resistência a Veneno (considerado o atributo menos útil do jogo)
+# inteligencia: Requisito para usar Sorceries (Feitiçarias); aumenta o dano de catalisadores e armas mágicas
+# fe: Requisito para usar Milagres; aumenta o poder de talismãs e armas divinas/ocultas
 
 
 class Jogador:
