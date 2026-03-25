@@ -9,38 +9,38 @@ implementar metodos:
 ligar(), desligar(), aumentarVolume(), diminuirVolume(), mutar(), desmutar(), proximoCanal(), voltarCanal(), acessarCanal(numeroCanal)
 */
 
-class marca{
+class Marca{
     //atributos
     public:
         std::string nome;
         std::string paisOrigem;
 
         //construtor
-        marca(std::string nome, std::string paisOrigem){
+        Marca(std::string nome, std::string paisOrigem){
             this->nome = nome;
             this->paisOrigem = paisOrigem;
         }
     
 };
 
-class modelo{
+class Modelo{
     public:
         int ano;
         int codigo;
         float tamanhoTela;
 
-        modelo(int ano, int codigo, float tamanhoTela){
+        Modelo(int ano, int codigo, float tamanhoTela){
             this->ano = ano;
             this->codigo = codigo;
             this->tamanhoTela = tamanhoTela;
         }
 };
 
-class estaLigada{
+class EstaLigada{
     public:
         bool ligada;
 
-        estaLigada(bool ligada){
+        EstaLigada(bool ligada){
             this->ligada = ligada;
         }
 
@@ -55,11 +55,11 @@ class estaLigada{
         }
 };
 
-class volume{
+class Volume{
     public:
         int nivel;
 
-        volume(int nivel){
+        Volume(int nivel){
             if(nivel > 0 && nivel <= 100){
                 this->nivel = nivel;
             } else {
@@ -82,11 +82,11 @@ class volume{
         }
 };
 
-class estaMutada{
+class EstaMutada{
     public:
         bool mutada;
 
-        estaMutada(bool mutada){
+        EstaMutada(bool mutada){
             this->mutada = mutada;
         }
 
@@ -102,11 +102,11 @@ class estaMutada{
 
 };
 
-class canal{   
+class Canal{   
     public:
         float numero;
 
-        canal(float numero){
+        Canal(float numero){
             if(numero > 0){
                 this->numero = numero;
             } else {
@@ -128,11 +128,11 @@ class canal{
         }
 };
 
-class canalAnterior{
+class CanalAnterior{
     public:
         float numeroAnterior;
 
-        canalAnterior(float numeroAnterior){
+        CanalAnterior(float numeroAnterior){
             this->numeroAnterior = (numeroAnterior > 0) ? numeroAnterior : 1;
         }
 
