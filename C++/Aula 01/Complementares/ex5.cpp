@@ -21,6 +21,10 @@ class Television{
 
         bool togglePower(){
             powerOn = !powerOn;
+
+            if(powerOn){
+                muted = false;
+            }
             return powerOn;
         }
 
@@ -81,15 +85,36 @@ class Television{
 int main(){
     Television tv;
 
+    std::cout << "Status inicial da TV:" << std::endl;
     std::cout << tv.getStatus() << std::endl; 
+
     tv.togglePower();
+    std::cout << "Após ligar:" << std::endl;
     std::cout << tv.getStatus() << std::endl; 
+
     tv.volumeUp();
-    std::cout << tv.getStatus() << std::endl; 
+    std::cout << "Após aumentar o volume:" << std::endl;
+    std::cout << tv.getStatus() << std::endl;
+
     tv.setChannel(5);
+    std::cout << "Após mudar para o canal 5:" << std::endl;
     std::cout << tv.getStatus() << std::endl; 
+
     tv.jumpPrevChannel();
+    std::cout << "Após voltar para o canal anterior:" << std::endl;
     std::cout << tv.getStatus() << std::endl; 
+
+    tv.toggleMute();
+    std::cout << "Após ativar o mudo:" << std::endl;
+    std::cout << tv.getStatus() << std::endl;
+
+    tv.togglePower();
+    std::cout << "Após desligar:" << std::endl;
+    std::cout << tv.getStatus() << std::endl;
+
+    tv.togglePower();
+    std::cout << "Após ligar novamente:" << std::endl;
+    std::cout << tv.getStatus() << std::endl;
     
     return 0;
 }
