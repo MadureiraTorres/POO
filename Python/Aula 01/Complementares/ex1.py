@@ -11,6 +11,12 @@ class Widget:
     def __str__(self):
         return 'My string is: ' + self._msg
     
+
+if __name__ == "__main__":
+    widget = Widget()
+    print(widget)
+    widget.replace()
+    print(widget)
 #erros:
 #Declaração de classe incorreta — def em vez de class
 #Nome do construtor incorreto — deve ser __init__, não o nome da classe
