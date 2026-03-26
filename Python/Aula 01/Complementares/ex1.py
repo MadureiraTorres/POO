@@ -1,12 +1,12 @@
-def Widget(): #erro 1, falta o parênteses para definir a classe
-
-    #construtor da classe
-    def __init__(self): #erro 2, o método construtor deve ser __init__
+class Widget:
+    def __init__(self):
         self._msg = "Hello, I'm a widget!"
-    
-    #def replace(self): 
-    #    index = self.index('w')
-    #    self._msg[index] = 'g' 
 
-    def __str__(self): 
-        print('My string is: ' + self._msg) #erro 3, falta os parênteses para a função print 
+    def replace(self):
+        index = self._msg.index('w')
+        msg_list = list(self._msg)
+        msg_list[index] = 'g'
+        self._msg = ''.join(msg_list)
+
+    def __str__(self):
+        return 'My string is: ' + self._msg
