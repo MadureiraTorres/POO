@@ -26,9 +26,9 @@ class Widget{
 int main(){
     Widget w;
 
-    std::cout << w.getMsg() << std::endl; // Output: Hello, I'm a widget!
+    std::cout << w.getMsg() << std::endl; 
     w.replace();
-    std::cout << w.getMsg() << std::endl; // Output: Hello, I'm a gidget!
+    std::cout << w.getMsg() << std::endl; 
     
     return 0;
 }
