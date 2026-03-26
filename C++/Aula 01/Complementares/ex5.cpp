@@ -72,6 +72,13 @@ class Television{
             return channel;
         }
 
+        void factoryReset(){
+            muted = false;
+            volume = 10;
+            channel = 2;
+            prevChannel = 2;
+        }
+
         std::string getStatus(){
             std::string status = "Power: " + std::string(powerOn ? "On" : "Off") + "\n";
             status += "Muted: " + std::string(muted ? "Yes" : "No") + "\n";
@@ -114,6 +121,10 @@ int main(){
 
     tv.togglePower();
     std::cout << "Após ligar novamente:" << std::endl;
+    std::cout << tv.getStatus() << std::endl;
+
+    tv.factoryReset();
+    std::cout << "Após resetar para as configurações de fábrica:" << std::endl;
     std::cout << tv.getStatus() << std::endl;
     
     return 0;
