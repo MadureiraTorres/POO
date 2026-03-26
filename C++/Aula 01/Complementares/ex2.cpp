@@ -12,6 +12,23 @@ class Widget{
         }
 
         void replace(){
-            index 
+            int index = msg.find("w");
+            if (index != std::string::npos) {
+                msg[index] = 'g';
+            }
+        }
+
+        std::string getMsg(){
+            return msg;
         }
 };
+
+int main(){
+    Widget w;
+
+    std::cout << w.getMsg() << std::endl; // Output: Hello, I'm a widget!
+    w.replace();
+    std::cout << w.getMsg() << std::endl; // Output: Hello, I'm a gidget!
+    
+    return 0;
+}
