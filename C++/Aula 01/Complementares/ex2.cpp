@@ -12,7 +12,7 @@ class Widget{
         }
 
         void replace(){
-            int index = msg.find("w");
+            size_t index = msg.find("w");
             if (index != std::string::npos) {
                 msg[index] = 'g';
             }
