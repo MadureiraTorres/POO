@@ -20,7 +20,7 @@ class Jogador:
         self.nome = nome
         self.classe = classe
         self.vida = vida                    # upa com vitalidade
-        self.stamina = stamina              # upa com fortitude! (Resistance no DS1 só aumenta defesa de poison, é meme)
+        self.stamina = stamina              # upa com fortitude (Resistance no DS só aumenta defesa de poison, é meme)
         self.nivel = nivel                  # nivel aumenta conforme upamos os atributos abaixo
         self.almas = almas                  # moeda de compra
         self.vitalidade = vitalidade        # quant de hp
@@ -32,7 +32,7 @@ class Jogador:
         self.inteligencia = inteligencia    # atributo para usar sorceries/sortilégios
         self.fe = fe                        # atributo pra usar milagres
 
-    def exibir_status(self):
+    def exibirStatus(self):
         print(f"Nome: {self.nome}")
         print(f"Classe: {self.classe}")
         print(f"Nivel: {self.nivel}")
@@ -47,6 +47,21 @@ class Jogador:
         print(f"Resistencia: {self.resistencia}")
         print(f"Inteligencia: {self.inteligencia}")
         print(f"Fe: {self.fe}")
+
+    def estaVivo(self):
+        return self.vida > 0
+
+    def receberDano(self, dano):
+        if dano > 0:
+            self.vida -= dano
+            if self.vida < 0:
+                self.vida = 0
+            print(f"{self.nome} recebeu {dano} de dano! Vida restante: {self.vida}")
+
+    def curar(self, quantidade):
+        if quantidade > 0 and self.estaVivo():
+            self.vida += quantidade
+            print(f"{self.nome} foi curado em {quantidade} pontos! Vida atual: {self.vida}")
 
 
 if __name__ == "__main__":
@@ -68,5 +83,10 @@ if __name__ == "__main__":
         fe=10
     )
 
-    jogador1.exibir_status()
-    
+    jogador1.exibirStatus()
+    print()
+    jogador1.receberDano(100)
+    print()
+    jogador1.curar(50)
+    print()
+    jogador1.exibirStatus()
