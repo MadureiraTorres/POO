@@ -2,6 +2,7 @@
 #include <string>
 
 //deixar o código modular para a próxima entrega
+//colocar o using namespace std para facilitar as chamadas de string etc
 //vou copiar os atributos do dark souls 1, que é o melhor rpg de todos kkkkkkkkk
 
 class Jogador{
