@@ -72,7 +72,7 @@ class Jogador{
         int curar(int cura){ //perguntar pro prof se eu posso fazer isso
             this->vida += cura;
             return this->vida;
-        }
+        } //se curar e passar do hp máximo setar como hp máximo
 };
 
 int main(){
