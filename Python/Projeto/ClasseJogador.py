@@ -17,53 +17,53 @@
 
 class Jogador:
     def __init__(self, nome, classe, vida, stamina, nivel, almas, vitalidade, conhecimento, fortitude, forca, destreza, resistencia, inteligencia, fe):
-        self.nome = nome
-        self.classe = classe
-        self.vida = vida                    # upa com vitalidade
-        self.stamina = stamina              # upa com fortitude (Resistance no DS só aumenta defesa de poison, é meme)
-        self.nivel = nivel                  # nivel aumenta conforme upamos os atributos abaixo
-        self.almas = almas                  # moeda de compra
-        self.vitalidade = vitalidade        # quant de hp
-        self.conhecimento = conhecimento    # quant de espaços para alocar magias
-        self.fortitude = fortitude          # quant de peso e stamina
-        self.forca = forca                  # quant de dano causado com armas pesadas
-        self.destreza = destreza            # quant de dano causado com armas rapidas
-        self.resistencia = resistencia      # defesa base (status inútil no DS1)
-        self.inteligencia = inteligencia    # atributo para usar sorceries/sortilégios
-        self.fe = fe                        # atributo pra usar milagres
+        self.__nome = nome
+        self.__classe = classe
+        self.__vida = vida                    # upa com vitalidade
+        self.__stamina = stamina              # upa com fortitude (Resistance no DS só aumenta defesa de poison, é meme)
+        self.__nivel = nivel                  # nivel aumenta conforme upamos os atributos abaixo
+        self.__almas = almas                  # moeda de compra
+        self.__vitalidade = vitalidade        # quant de hp
+        self.__conhecimento = conhecimento    # quant de espaços para alocar magias
+        self.__fortitude = fortitude          # quant de peso e stamina
+        self.__forca = forca                  # quant de dano causado com armas pesadas
+        self.__destreza = destreza            # quant de dano causado com armas rapidas
+        self.__resistencia = resistencia      # defesa base (status inútil no DS1)
+        self.__inteligencia = inteligencia    # atributo para usar sorceries/sortilégios
+        self.__fe = fe                        # atributo pra usar milagres
 
     def exibirStatus(self):
-        print(f"Nome: {self.nome}")
-        print(f"Classe: {self.classe}")
-        print(f"Nivel: {self.nivel}")
-        print(f"Vida: {self.vida}")
-        print(f"Stamina: {self.stamina}")
-        print(f"Almas: {self.almas}")
-        print(f"Vitalidade: {self.vitalidade}")
-        print(f"Conhecimento: {self.conhecimento}")
-        print(f"Fortitude: {self.fortitude}")
-        print(f"Forca: {self.forca}")
-        print(f"Destreza: {self.destreza}")
-        print(f"Resistencia: {self.resistencia}")
-        print(f"Inteligencia: {self.inteligencia}")
-        print(f"Fe: {self.fe}")
+        print(f"Nome: {self.__nome}")
+        print(f"Classe: {self.__classe}")
+        print(f"Nivel: {self.__nivel}")
+        print(f"Vida: {self.__vida}")
+        print(f"Stamina: {self.__stamina}")
+        print(f"Almas: {self.__almas}")
+        print(f"Vitalidade: {self.__vitalidade}")
+        print(f"Conhecimento: {self.__conhecimento}")
+        print(f"Fortitude: {self.__fortitude}")
+        print(f"Forca: {self.__forca}")
+        print(f"Destreza: {self.__destreza}")
+        print(f"Resistencia: {self.__resistencia}")
+        print(f"Inteligencia: {self.__inteligencia}")
+        print(f"Fe: {self.__fe}")
 
     def estaVivo(self):
-        return self.vida > 0
+        return self.__vida > 0
 
     def receberDano(self, dano):
         if dano > 0:
-            self.vida -= dano
-            if self.vida < 0:
-                self.vida = 0
-            print(f"{self.nome} recebeu {dano} de dano! Vida restante: {self.vida}")
+            self.__vida -= dano
+            if self.__vida < 0:
+                self.__vida = 0
+            print(f"{self.__nome} recebeu {dano} de dano! Vida restante: {self.__vida}")
 
     def curar(self, quantidade):
         if quantidade > 0 and self.estaVivo():
-            self.vida += quantidade
-            print(f"{self.nome} foi curado em {quantidade} pontos! Vida atual: {self.vida}")
+            self.__vida += quantidade
+            print(f"{self.__nome} foi curado em {quantidade} pontos! Vida atual: {self.__vida}")
 
-
+# Função principal
 if __name__ == "__main__":
     # Criando um jogador
     jogador1 = Jogador(
