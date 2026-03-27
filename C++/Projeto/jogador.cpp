@@ -45,8 +45,8 @@ class Jogador{
             std::cout << "Nome: " << this->nome << std::endl;
             std::cout << "Classe: " << this->classe << std::endl;
             std::cout << "Nivel: " << this->nivel << std::endl;
-            std::cout << "Vida: " << this->vida << std::endl;
-            std::cout << "Stamina: " << this->stamina << std::endl;
+            //std::cout << "Vida: " << this->vida << std::endl; não printar ainda, esperar heranças
+            //std::cout << "Stamina: " << this->stamina << std::endl; mesma coisa da parte acima
             std::cout << "Almas: " << this->almas << std::endl;
             std::cout << "Vitalidade: " << this->vitalidade << std::endl;
             std::cout << "Conhecimento: " << this->conhecimento << std::endl;
