@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+//deixar o código modular para a próxima entrega
 //vou copiar os atributos do dark souls 1, que é o melhor rpg de todos kkkkkkkkk
 
 class Jogador{
