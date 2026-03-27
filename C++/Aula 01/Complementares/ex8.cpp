@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
 
-typedef struct Node{
+struct Node{
     int channel;
-    struct Node* next;
-    Node(int c) : channel(c), next(nullptr) {}
+    Node* next;
+    Node* prev;
+
+    Node(int ch) : channel(ch), next(nullptr), prev(nullptr) {}
 };
 
 class Television{
@@ -14,8 +16,9 @@ class Television{
         int volume;
         int channel;
         int prevChannel;
-        Node* topFavourite;
-        int favouriteCount;
+        Node* headFavorite;   
+        Node* currentFavorite;  
+        int favoriteCount;
 
     public:
         //construtor
@@ -25,8 +28,9 @@ class Television{
             volume = 10;
             channel = 2;
             prevChannel = 2;
-            topFavourite = nullptr;
-            favouriteCount = 0;
+            headFavorite = nullptr;
+            currentFavorite = nullptr;
+            favoriteCount = 0;
         }
 
         bool togglePower(){
@@ -89,25 +93,68 @@ class Television{
             prevChannel = 2;
         }
 
-        void addToFavourites(int n){
-            Node* newNode = new Node(n);
-            newNode->next = topFavourite;
-            topFavourite = newNode;
-            favouriteCount++;
+        void addFavorite(int channel) {
+            Node* newNode = new Node(channel);
 
-        }
-
-        int removeFromFavourites(){
-            if(favouriteCount == 0){
-                return -1; 
+            if (headFavorite == nullptr){
+                headFavorite = newNode;
+                currentFavorite = newNode;
+                favoriteCount++;
+                return;
             }
-            int removedChannel = topFavourite->channel;
-            Node* temp = topFavourite;
-            topFavourite = topFavourite->next;
-            delete temp;
-            favouriteCount--;
-            return removedChannel;
+
+            Node* temp = headFavorite;
+
+            while (temp != nullptr){
+                if (temp->channel == channel) return; 
+                temp = temp->next;
+            }
+
+            temp = headFavorite;
+            while (temp->next != nullptr){
+                temp = temp->next;
+            }
+            
+            temp->next = newNode;
+            newNode->prev = temp;
+            favoriteCount++;
         }
+
+        void removeFavorite(int channel){
+            Node* temp = headFavorite;
+
+            while (temp != nullptr) {
+                if (temp->channel == channel) {
+                    if (temp->prev) temp->prev->next = temp->next;
+                    else headFavorite = temp->next; 
+
+                    if (temp->next) temp->next->prev = temp->prev;
+
+                    if (currentFavorite == temp)
+                    currentFavorite = temp->next ? temp->next : temp->prev;
+
+                    delete temp;
+                    favoriteCount--;
+                    return;
+            }
+
+            temp = temp->next;
+            }
+        }
+
+        bool goToFavorite(int channel){
+            Node* temp = headFavorite;
+            while (temp != nullptr) {
+                if (temp->channel == channel) {
+                    currentFavorite = temp;
+                    if (powerOn) this->channel = channel;
+                    return true;
+                }
+            temp = temp->next;
+            }
+            return false; // não encontrado
+        }
+
 
         std::string getStatus(){
             std::string status = "Power: " + std::string(powerOn ? "On" : "Off") + "\n";
@@ -156,6 +203,14 @@ int main(){
     tv.factoryReset();
     std::cout << "Após resetar para as configurações de fábrica:" << std::endl;
     std::cout << tv.getStatus() << std::endl;
+
+    tv.addFavorite(11);
+    tv.addFavorite(22);
+    tv.addFavorite(45);
+
+    tv.goToFavorite(45);
+
+    tv.removeFavorite(22);
     
     return 0;
 }
