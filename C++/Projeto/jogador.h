@@ -1,16 +1,22 @@
+#ifndef JOGADOR_H //tinha funcionado sem, mas é melhor colocar
+#define JOGADOR_H
+
 #include <iostream>
 #include <string>
 
-//deixar o código modular para a próxima entrega
-//colocar o using namespace std para facilitar as chamadas de string etc
-//vou copiar os atributos do dark souls 1, que é o melhor rpg de todos kkkkkkkkk
+using namespace std;
+
+//deixar o código modular para a próxima entrega (ok)
+//colocar o using namespace std para facilitar as chamadas de string etc (ok)
 
 class Jogador{
     private:
-        std::string nome;
-        std::string classe;
-        int vida; //upa com vitalidade
-        int stamina; //upa com resistência ou fortitude, não sei ainda
+        string nome;
+        string classe;
+        int vidaMax; //upa com vitalidade
+        int vidaAtual;
+        int staminaMax; //upa com resistência ou fortitude, não sei ainda
+        int staminaAtual;
         int nivel; //nivel aumenta conforme upamos os atributos abaixo
         int almas; //moeda de compra e que também serve para upar os atributos 
         int vitalidade; //quant de hp, quando eu abrir o jogo de novo eu vejo o que de sub-atributo upa com ele
@@ -26,7 +32,7 @@ class Jogador{
 
 
     public:
-        Jogador(std::string nome, std::string classe, int nivel, int almas, int vitalidade, 
+        Jogador(string nome, string classe, int nivel, int almas, int vitalidade, 
             int conhecimento, int fortitude, int forca, int destreza, int resistencia, int inteligencia, int fe){
             this->nome = nome;
             this->classe = classe;
@@ -43,43 +49,43 @@ class Jogador{
         }
 
         void exibirStatus(){
-            std::cout << "Nome: " << this->nome << std::endl;
-            std::cout << "Classe: " << this->classe << std::endl;
-            std::cout << "Nivel: " << this->nivel << std::endl;
+            cout << "Nome: " << this->nome << endl;
+            cout << "Classe: " << this->classe << endl;
+            cout << "Nivel: " << this->nivel << endl;
             //std::cout << "Vida: " << this->vida << std::endl; não printar ainda, esperar heranças
             //std::cout << "Stamina: " << this->stamina << std::endl; mesma coisa da parte acima
-            std::cout << "Almas: " << this->almas << std::endl;
-            std::cout << "Vitalidade: " << this->vitalidade << std::endl;
-            std::cout << "Conhecimento: " << this->conhecimento << std::endl;
-            std::cout << "Fortitude: " << this->fortitude << std::endl;
-            std::cout << "Forca: " << this->forca << std::endl;
-            std::cout << "Destreza: " << this->destreza << std::endl;
-            std::cout << "Resistencia: " << this->resistencia << std::endl;
-            std::cout << "Inteligencia: " << this->inteligencia << std::endl;
-            std::cout << "Fe: " << this->fe << std::endl;
+            cout << "Almas: " << this->almas << endl;
+            cout << "Vitalidade: " << this->vitalidade << endl;
+            cout << "Conhecimento: " << this->conhecimento << endl;
+            cout << "Fortitude: " << this->fortitude << endl;
+            cout << "Forca: " << this->forca << endl;
+            cout << "Destreza: " << this->destreza << endl;
+            cout << "Resistencia: " << this->resistencia << endl;
+            cout << "Inteligencia: " << this->inteligencia << endl;
+            cout << "Fe: " << this->fe << endl;
         }
 
         bool estaVivo(int vida){
             return vida > 0;
         }
 
-        int receberDano(int dano){ //perguntar pro prof se eu posso fazer isso
-            this->vida -= dano;
-            if(this->vida < 0){
-                this->vida = 0;
+        int receberDano(int dano){
+            this->vidaAtual -= dano;
+            if(this->vidaAtual < 0){
+                this->vidaAtual = 0;
             }
-            return this->vida;
+            return this->vidaAtual;
         }
 
-        int curar(int cura){ //perguntar pro prof se eu posso fazer isso
-            this->vida += cura;
-            return this->vida;
-        } //se curar e passar do hp máximo setar como hp máximo
+        int curar(int cura){
+            this->vidaAtual += cura;
+            
+            if(this->vidaAtual > this->vidaMax){
+                this->vidaAtual = this->vidaMax;
+            }
+
+            return this->vidaAtual;
+        } //se curar e passar do hp máximo setar como hp máximo (ok)
 };
 
-int main(){
-    Jogador jogador1("Solaire", "Cavaleiro", 1, 0, 100, 10, 10, 10, 10, 10, 10, 10);
-    jogador1.exibirStatus();
-
-    return 0;
-}
+#endif
