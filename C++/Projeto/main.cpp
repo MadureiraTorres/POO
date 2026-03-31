@@ -3,6 +3,7 @@
 /*
 Perguntar para o prof:
 -como definir as classes iniciais e se elas vão ser outras classes de fato no código?
+-sobre o nível nunca ser negativo, explicar que as classes iniciais já vem com um level pre-setado e não tem como ser menor que aquilo
 */
 
 int main(){
