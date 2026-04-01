@@ -81,7 +81,7 @@ class Jogador{
             this->vidaAtual += cura;
             
             if(this->vidaAtual > this->vidaMax){
-                this->vidaAtual = this->vidaMax;
+                this->vidaAtual = this->vidaMax;    //ver se eu consigo fazer essa parada com operador ternário
             }
 
             return this->vidaAtual;
