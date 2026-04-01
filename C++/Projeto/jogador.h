@@ -33,7 +33,8 @@ class Jogador{
 
     public:
         Jogador(string nome, string classe, int nivel, int almas, int vitalidade, 
-            int conhecimento, int fortitude, int forca, int destreza, int resistencia, int inteligencia, int fe){
+                int conhecimento, int fortitude, int forca, int destreza, int resistencia, 
+                int inteligencia, int fe, int vidaMax, int staminaMax){
             this->nome = nome;
             this->classe = classe;
             this->nivel = nivel;
@@ -46,14 +47,21 @@ class Jogador{
             this->resistencia = resistencia;
             this->inteligencia = inteligencia;
             this->fe = fe;
+            this->vidaMax = vidaMax;            //LEMBRAR QUE NAS PRÓXIMAS ETAPAS DO PROJETO, A VIDA MAX VAI DEPENDER DE ATRIBUTOS (HERANÇA)
+            this->vidaAtual = vidaMax;
+            this->staminaMax = staminaMax;
+            this->staminaAtual = staminaMax;
         }
+
+//-----------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
 
         void exibirStatus(){
             cout << "Nome: " << this->nome << endl;
             cout << "Classe: " << this->classe << endl;
             cout << "Nivel: " << this->nivel << endl;
-            //std::cout << "Vida: " << this->vida << std::endl; não printar ainda, esperar heranças
-            //std::cout << "Stamina: " << this->stamina << std::endl; mesma coisa da parte acima
+            cout << "Vida: " << this->vidaAtual << endl;
+            cout << "Stamina: " << this->stamina << endl; 
             cout << "Almas: " << this->almas << endl;
             cout << "Vitalidade: " << this->vitalidade << endl;
             cout << "Conhecimento: " << this->conhecimento << endl;
@@ -65,9 +73,15 @@ class Jogador{
             cout << "Fe: " << this->fe << endl;
         }
 
+//-----------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
+
         bool estaVivo(int vida){
             return vida > 0;
         }
+
+//-----------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
 
         int receberDano(int dano){
             this->vidaAtual -= dano;
@@ -77,11 +91,14 @@ class Jogador{
             return this->vidaAtual;
         }
 
+//-----------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
+
         int curar(int cura){
             this->vidaAtual += cura;
             
             if(this->vidaAtual > this->vidaMax){
-                this->vidaAtual = this->vidaMax;    //ver se eu consigo fazer essa parada com operador ternário
+                this->vidaAtual = this->vidaMax; 
             }
 
             return this->vidaAtual;
