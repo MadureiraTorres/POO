@@ -31,7 +31,7 @@ class Termostato{
         }
 
     public:
-        Termostato() : temperatura(20), ligado(false){} // Construtor padrão
+        Termostato() : temperatura(20), ligado(false){} // Construtor padrão, tirar dúvida sobre este tipo de construtor com o prof
 
         void ligar(){
             ligado = true;
