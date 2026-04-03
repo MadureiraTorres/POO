@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 //deixar o código modular para a próxima entrega (ok)
@@ -60,8 +59,8 @@ class Jogador{
             cout << "Nome: " << this->nome << endl;
             cout << "Classe: " << this->classe << endl;
             cout << "Nivel: " << this->nivel << endl;
-            cout << "Vida: " << this->vidaAtual << endl;
-            cout << "Stamina: " << this->stamina << endl; 
+            cout << "Vida: " << this->vidaAtual << "/" << this->vidaMax << endl;
+            cout << "Stamina: " << this->staminaAtual << "/" << this->staminaMax << endl;
             cout << "Almas: " << this->almas << endl;
             cout << "Vitalidade: " << this->vitalidade << endl;
             cout << "Conhecimento: " << this->conhecimento << endl;

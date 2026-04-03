@@ -7,7 +7,17 @@ Perguntar para o prof:
 */
 
 int main(){
-    Jogador jogador1("Solaire", "Cavaleiro", 1, 0, 100, 10, 10, 10, 10, 10, 10, 10);
+    Jogador jogador1("Rafael", "Guerreiro", 1, 0, 10, 5, 5, 10, 5, 5, 5, 5, 100, 50);
+    jogador1.exibirStatus();
+
+    //recebendo um dano de 20 pontos
+    jogador1.receberDano(20);
+    cout << "\nApós receber 20 pontos de dano:\n";
+    jogador1.exibirStatus();
+
+    //curando 10 pontos de vida
+    jogador1.curar(10);
+    cout << "\nApós curar 10 pontos de vida:\n";
     jogador1.exibirStatus();
 
     return 0;
