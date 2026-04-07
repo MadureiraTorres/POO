@@ -1,0 +1,34 @@
+#Exercicio 1: Crie uma classe Logger que, ao ser construída, abre um arquivo de texto para escrita e registra a data/hora de início da sessão. A classe deve ter
+#um método registrar(mensagem) que escreve uma linha no arquivo. O destrutor deve registrar a hora de encerramento e fechar o arquivo corretamente.
+#O objetivo é garantir que o arquivo nunca fique aberto semser fechado, mesmo que o objeto saia de escopo inesperadamente.
+
+import datetime
+
+class Logger:
+    def __init__(self, nome_arquivo):
+        self.nome_arquivo = nome_arquivo
+        # Abre o arquivo no modo 'a' para não sobrescrever logs anteriores ou 'w' para iniciar um arquivo novo.
+        self.arquivo = open(self.nome_arquivo, 'a', encoding='utf-8')
+        inicio = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.arquivo.write(f"--- Sessão iniciada em: {inicio} ---\n")
+
+    def registrar(self, mensagem):
+        """Escreve uma mensagem no log com o timestamp atual."""
+        agora = datetime.datetime.now().strftime("%H:%M:%S")
+        self.arquivo.write(f"[{agora}] {mensagem}\n")
+        # Garante que o buffer seja gravado no disco
+        self.arquivo.flush()
+
+    def __del__(self):
+        """Destrutor: registra o encerramento e fecha o arquivo com segurança."""
+        try:
+            fim = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.arquivo.write(f"--- Sessão encerrada em: {fim} ---\n\n")
+            self.arquivo.close()
+        except Exception:
+            # Caso ocorra erro ao fechar, minimiza falha 
+            pass
+
+log = Logger("registro_atividades.txt")
+log.registrar("Processamento de dados iniciado.")
+log.registrar("Conexão com o banco de dados estabelecida.")
