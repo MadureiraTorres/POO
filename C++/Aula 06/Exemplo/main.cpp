@@ -26,6 +26,7 @@ class Pix : public IPagamento{
 class Cartao : public IPagamento, public IAutenticavel{
     public:
         void processar(float valor) override{
+            //autenticar();
             cout << "Cartao: " << valor << endl;
         }
         void autenticar() override{
@@ -39,8 +40,17 @@ void processarPagamento(IPagamento *pagamento, float valor);
 //main
 int main(){
     IPagamento *p1 = new Pix();
+    IPagamento *p2 = new Cartao();
+
+    cout << endl;
     processarPagamento(p1, 100);
+    cout << endl;
+    processarPagamento(p2, 200);
+    cout << endl;
+
+
     delete(p1);
+    delete(p2);
 
     return 0;
 }
