@@ -14,6 +14,8 @@
 # inteligencia: Requisito para usar Sorceries (Feitiçarias); aumenta o dano de catalisadores e armas mágicas
 # fe: Requisito para usar Milagres; aumenta o poder de talismãs e armas divinas/ocultas
 
+from abc import ABC, abstractmethod
+
 # EXCEÇÕES CUSTOMIZADAS
 class StaminaInsuficienteError(Exception):
     pass
@@ -107,6 +109,46 @@ class Jogador(Entidade):
             novaVida = self.getVida() + quantidade
             self.setVida(novaVida)
             print(f"{self.getNome()} foi curado em {quantidade} pontos! Vida atual: {self.getVida()}")
+            
+    def consumirItem(self, item):
+        # Verifica se o objeto passado realmente segue o contrato da interface
+        if isinstance(item, IItemUsavel):
+            print(f"\n{self.getNome()} está tentando usar um item...")
+            item.usarItem(self) # Passa o próprio jogador como alvo
+        else:
+            print("Este objeto não é um item usável!")
+            
+# INTERFACES
+class IItemUsavel(ABC):
+    """Interface: Define o contrato para qualquer item que possa ser usado no jogo.
+    Não possui lógica, apenas a assinatura do método."""
+    @abstractmethod
+    def usarItem(self, alvo):
+        pass
+
+# IMPLEMENTAÇÃO DA INTERFACE
+class EstusFlask(IItemUsavel):
+    def __init__(self, cargasIniciais, poderCura):
+        self.__cargas = cargasIniciais
+        self.__poderCura = poderCura
+
+    def usarItem(self, alvo):
+        if self.__cargas > 0:
+            self.__cargas -= 1
+            print(f"O item Frasco de Estus foi ativado!")
+            alvo.curar(self.__poderCura)
+            print(f"Cargas restantes de Estus: {self.__cargas}")
+        else:
+            print("Frasco de Estus vazio! Descanse em uma Bonfire.")
+
+
+class Humanidade(IItemUsavel):
+    def __init__(self):
+        self.__curaTotal = 9999 # A humanidade cura todo o HP
+        
+    def usarItem(self, alvo):
+        print(f"Humanidade esmagada! Recuperando toda a vida.")
+        alvo.curar(self.__curaTotal)
 
 # SISTEMA DE ATAQUE ESPECÍFICO DO JOGADOR
     def atacar(self, alvo):
@@ -156,21 +198,36 @@ if __name__ == "__main__":
         danoBase=15
     )
 
+    # Instanciando os itens
+    meuEstus = EstusFlask(cargasIniciais=3, poderCura=50)
+    minhaHumanidade = Humanidade()
+
+    print("\nTESTANDO ITENS")
+    
+    # O jogador toma dano para testar a cura
+    jogador1.receberDano(80)
+    
+    # Jogador usa o Estus Flask (que implementa IItemUsavel)
+    jogador1.consumirItem(meuEstus)
+    
+    # Jogador usa a Humanidade (que implementa a mesma interface, mas age diferente)
+    jogador1.consumirItem(minhaHumanidade)
+
     jogador1.exibirStatus()
     print("\nINICIO DO COMBATE")
 
     try:
         # Jogador ataca
         jogador1.atacar(hollow)
-        print()
+        #print()
         
         # Inimigo ataca
         hollow.atacar(jogador1)
-        print()
+        #print()
         
         # Jogador ataca novamente
         jogador1.atacar(hollow)
-        print()
+        #print()
         
         # Jogador tenta atacar um alvo que já morreu
         jogador1.atacar(hollow)
@@ -180,5 +237,5 @@ if __name__ == "__main__":
     except AlvoMortoError as e:
         print(f"AVISO DE COMBATE: {e}")
 
-    print("\nPOS COMBATE")
+    print("FIM DO COMBATE")
     jogador1.curar(20)
