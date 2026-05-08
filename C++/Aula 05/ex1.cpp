@@ -36,6 +36,16 @@ class Animal{
             if(age < 0 || age > 50){
                 throw IdadeInvalidaException();
             }
+
+            this->idade = age;
+        }
+
+        void setDono(string ownerName){
+            if(ownerName.length() < 3){
+                throw NomeInvalidoException();
+            }
+
+            this->nomeDono = ownerName;
         }
         
 
