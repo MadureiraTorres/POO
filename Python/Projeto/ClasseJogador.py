@@ -14,39 +14,34 @@
 # inteligencia: Requisito para usar Sorceries (Feitiçarias); aumenta o dano de catalisadores e armas mágicas
 # fe: Requisito para usar Milagres; aumenta o poder de talismãs e armas divinas/ocultas
 
+# EXCEÇÕES CUSTOMIZADAS
+class StaminaInsuficienteError(Exception):
+    pass
 
-class Jogador:
-    def __init__(self, nome, classe, vida, stamina, nivel, almas, vitalidade, conhecimento, fortitude, forca, destreza, resistencia, inteligencia, fe):
+class AlvoMortoError(Exception):
+    pass
+
+# HERANÇA
+class Entidade:
+    def __init__(self, nome, vida, stamina):
         self.__nome = nome
-        self.__classe = classe
-        self.__vida = vida                    # upa com vitalidade
-        self.__stamina = stamina              # upa com fortitude (Resistance no DS só aumenta defesa de poison, é meme)
-        self.__nivel = nivel                  # nivel aumenta conforme upamos os atributos abaixo
-        self.__almas = almas                  # moeda de compra
-        self.__vitalidade = vitalidade        # quant de hp
-        self.__conhecimento = conhecimento    # quant de espaços para alocar magias
-        self.__fortitude = fortitude          # quant de peso e stamina
-        self.__forca = forca                  # quant de dano causado com armas pesadas
-        self.__destreza = destreza            # quant de dano causado com armas rapidas
-        self.__resistencia = resistencia      # defesa base (status inútil no DS1)
-        self.__inteligencia = inteligencia    # atributo para usar sorceries/sortilégios
-        self.__fe = fe                        # atributo pra usar milagres
+        self.__vida = vida
+        self.__stamina = stamina
 
-    def exibirStatus(self):
-        print(f"Nome: {self.__nome}")
-        print(f"Classe: {self.__classe}")
-        print(f"Nivel: {self.__nivel}")
-        print(f"Vida: {self.__vida}")
-        print(f"Stamina: {self.__stamina}")
-        print(f"Almas: {self.__almas}")
-        print(f"Vitalidade: {self.__vitalidade}")
-        print(f"Conhecimento: {self.__conhecimento}")
-        print(f"Fortitude: {self.__fortitude}")
-        print(f"Forca: {self.__forca}")
-        print(f"Destreza: {self.__destreza}")
-        print(f"Resistencia: {self.__resistencia}")
-        print(f"Inteligencia: {self.__inteligencia}")
-        print(f"Fe: {self.__fe}")
+    def getNome(self):
+        return self.__nome
+
+    def getVida(self):
+        return self.__vida
+
+    def setVida(self, vida):
+        self.__vida = vida
+
+    def getStamina(self):
+        return self.__stamina
+
+    def setStamina(self, stamina):
+        self.__stamina = stamina
 
     def estaVivo(self):
         return self.__vida > 0
@@ -58,35 +53,132 @@ class Jogador:
                 self.__vida = 0
             print(f"{self.__nome} recebeu {dano} de dano! Vida restante: {self.__vida}")
 
+    def atacar(self, alvo):
+        pass
+
+
+# POLIMORFISMO E HERANÇA
+class Inimigo(Entidade):
+    def __init__(self, nome, vida, stamina, danoBase):
+        super().__init__(nome, vida, stamina)
+        self.__danoBase = danoBase
+
+    def atacar(self, alvo):
+        if not alvo.estaVivo():
+            raise AlvoMortoError(f"O alvo {alvo.getNome()} ja esta morto!")
+        
+        print(f"{self.getNome()} ataca {alvo.getNome()}!")
+        alvo.receberDano(self.__danoBase)
+
+
+class Jogador(Entidade):
+    def __init__(self, nome, classe, vida, stamina, nivel, almas, vitalidade, conhecimento, fortitude, forca, destreza, resistencia, inteligencia, fe):
+        super().__init__(nome, vida, stamina)
+        self.__classe = classe
+        self.__nivel = nivel                  
+        self.__almas = almas                  
+        self.__vitalidade = vitalidade        
+        self.__conhecimento = conhecimento    
+        self.__fortitude = fortitude          
+        self.__forca = forca                  
+        self.__destreza = destreza            
+        self.__resistencia = resistencia      
+        self.__inteligencia = inteligencia    
+        self.__fe = fe                        
+
+    def exibirStatus(self):
+        print(f"Nome: {self.getNome()}")
+        print(f"Classe: {self.__classe}")
+        print(f"Nivel: {self.__nivel}")
+        print(f"Vida: {self.getVida()}")
+        print(f"Stamina: {self.getStamina()}")
+        print(f"Almas: {self.__almas}")
+        print(f"Vitalidade: {self.__vitalidade}")
+        print(f"Conhecimento: {self.__conhecimento}")
+        print(f"Fortitude: {self.__fortitude}")
+        print(f"Forca: {self.__forca}")
+        print(f"Destreza: {self.__destreza}")
+        print(f"Resistencia: {self.__resistencia}")
+        print(f"Inteligencia: {self.__inteligencia}")
+        print(f"Fe: {self.__fe}")
+
     def curar(self, quantidade):
         if quantidade > 0 and self.estaVivo():
-            self.__vida += quantidade
-            print(f"{self.__nome} foi curado em {quantidade} pontos! Vida atual: {self.__vida}")
+            novaVida = self.getVida() + quantidade
+            self.setVida(novaVida)
+            print(f"{self.getNome()} foi curado em {quantidade} pontos! Vida atual: {self.getVida()}")
 
-# Função principal
+# SISTEMA DE ATAQUE ESPECÍFICO DO JOGADOR
+    def atacar(self, alvo):
+        if not alvo.estaVivo():
+            raise AlvoMortoError(f"O alvo {alvo.getNome()} ja esta morto!")
+        
+        custoStamina = 30
+        staminaAtual = self.getStamina()
+        
+        if staminaAtual < custoStamina:
+            raise StaminaInsuficienteError(f"{self.getNome()} nao tem stamina suficiente para atacar!")
+        
+        # Consome a stamina
+        self.setStamina(staminaAtual - custoStamina)
+        
+        # O dano aumenta com base no atributo Força
+        danoCalculado = self.__forca * 3
+        
+        print(f"{self.getNome()} ataca {alvo.getNome()}! (Stamina restante: {self.getStamina()})")
+        alvo.receberDano(danoCalculado)
+
+
 if __name__ == "__main__":
     # Criando um jogador
     jogador1 = Jogador(
         nome="Hargon",
         classe="Arqueiro",
-        vida=1000,
+        vida=100,
         stamina=100,
         nivel=10,
         almas=10,
         vitalidade=10,
         conhecimento=10,
         fortitude=10,
-        forca=10,
+        forca=15,
         destreza=10,
         resistencia=10,
         inteligencia=10,
         fe=10
     )
 
+    # Criando um inimigo para testar o sistema de ataque
+    hollow = Inimigo(
+        nome="Undead Hollow",
+        vida=40,
+        stamina=50,
+        danoBase=15
+    )
+
     jogador1.exibirStatus()
-    print()
-    jogador1.receberDano(100)
-    print()
-    jogador1.curar(50)
-    print()
-    jogador1.exibirStatus()
+    print("\nINICIO DO COMBATE")
+
+    try:
+        # Jogador ataca
+        jogador1.atacar(hollow)
+        print()
+        
+        # Inimigo ataca
+        hollow.atacar(jogador1)
+        print()
+        
+        # Jogador ataca novamente
+        jogador1.atacar(hollow)
+        print()
+        
+        # Jogador tenta atacar um alvo que já morreu
+        jogador1.atacar(hollow)
+        
+    except StaminaInsuficienteError as e:
+        print(f"AVISO DE COMBATE: {e}")
+    except AlvoMortoError as e:
+        print(f"AVISO DE COMBATE: {e}")
+
+    print("\nPOS COMBATE")
+    jogador1.curar(20)
