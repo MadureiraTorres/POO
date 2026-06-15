@@ -12,8 +12,16 @@ class Jogador{
         int nivel;
         int hpAtual;
         int hpMax;
+        int exp;
 
     public:
+        //construtor
+        Jogador(string nm, int lv, int hp){
+            setNome(nm);
+            setNivel(lv);
+            setHP(hp);
+        }
+
         //getters (acesso)
         string getNome() const{
             return nome;
@@ -31,6 +39,10 @@ class Jogador{
             return hpAtual;
         }
 
+        int getXP() const{
+            return exp;
+        }
+        
         //setters (validadores)
         void setNome(string nm){
             nome = nm;
@@ -49,6 +61,10 @@ class Jogador{
             }
         }
 
+        void setXP(int xp){
+            exp = xp;
+        }
+
         //métodos
         void exibirStatus(){
             string vivo = estaVivo() ? "Vivo" : "Morto";
@@ -60,7 +76,7 @@ class Jogador{
             cout << vivo << endl;
         }
 
-        bool estaVivo(){
+        bool estaVivo() const{
             if(hpAtual > 0){
                 return true;
             }
@@ -68,7 +84,7 @@ class Jogador{
         }
 
         void receberDano(int dano){
-            if(estaVivo() == true){
+            if(estaVivo() == true){ //já não está com validação?
                 hpAtual -= dano;
                 
                 if(hpAtual < 0){
@@ -80,8 +96,20 @@ class Jogador{
         void curar(int cura){
             if(estaVivo() == true){ //como aplicar validação aqui?
                 hpAtual += cura;
+
+                if(hpAtual > hpMax){
+                    hpAtual = hpMax;
+                }
             }
         }
-};
+
+        void experiencia(int quant){
+            //???????????
+        }
+
+        void subirNivel(){
+            nivel++;
+        }
+    };
 
 #endif

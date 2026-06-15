@@ -1,10 +1,7 @@
 #include "jogador.h"
 
 int main(){
-    Jogador p1;
-    p1.setNome("Player");
-    p1.setHP(100);
-    p1.setNivel(1);
+    Jogador p1("Player", 1, 100);
     
     //testes
     cout << "Status inicial" << endl;
@@ -21,9 +18,15 @@ int main(){
     p1.exibirStatus();
 
     cout << endl;
-    cout << "Status final" << endl;
+    cout << "Status morto" << endl;
     p1.receberDano(100);
     p1.exibirStatus();
+
+    cout << endl;
+    cout << "Status final (não cura se estiver morto)" << endl;
+    p1.curar(500);
+    p1.exibirStatus();
+
 
     return 0;
 }
