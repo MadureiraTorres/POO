@@ -4,6 +4,7 @@ int main(){
     Jogador p1;
     p1.setNome("Player");
     p1.setHP(100);
+    p1.setNivel(1);
     
     //testes
     cout << "Status inicial" << endl;

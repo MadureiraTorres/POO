@@ -41,8 +41,8 @@ class Jogador{
             hpAtual = hpMax;
         }
 
-        void setNivel(){
-            nivel = 1;
+        void setNivel(int lv){
+            nivel = lv;
         }
 
         //métodos
