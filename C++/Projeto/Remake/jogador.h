@@ -42,7 +42,11 @@ class Jogador{
         }
 
         void setNivel(int lv){
-            nivel = lv;
+            if(lv > 0){
+                nivel = lv;
+            } else{
+                throw invalid_argument("Nível deve ser positivo");
+            }
         }
 
         //métodos
@@ -74,7 +78,7 @@ class Jogador{
         }
 
         void curar(int cura){
-            if(estaVivo() == true){
+            if(estaVivo() == true){ //como aplicar validação aqui?
                 hpAtual += cura;
             }
         }
