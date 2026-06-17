@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdexcept>
 using namespace std;
 
 class Jogador{
@@ -13,13 +14,19 @@ class Jogador{
         int hpAtual;
         int hpMax;
         int exp;
+        int forca;
+        int dex;
+        int lvuppoints;
 
     public:
         //construtor
-        Jogador(string nm, int lv, int hp){
+        Jogador(const string &nm, int lv, int hp){
             setNome(nm);
             setNivel(lv);
             setHP(hp);
+            setStatus(2, 2);
+            setXP(0);
+            setLVUP(0);
         }
 
         //getters (acesso)
@@ -43,8 +50,20 @@ class Jogador{
             return exp;
         }
         
+        int getForca() const{
+            return forca;
+        }
+
+        int getDex() const{
+            return dex;
+        }
+
+        int getLVUP() const{
+            return lvuppoints;
+        }
+
         //setters (validadores)
-        void setNome(string nm){
+        void setNome(const string &nm){
             nome = nm;
         }
 
@@ -65,6 +84,15 @@ class Jogador{
             exp = xp;
         }
 
+        void setLVUP(int a){
+            lvuppoints = a;
+        }
+
+        void setStatus(int a, int b){
+            forca = a;
+            dex = b;
+        }
+
         //métodos
         void exibirStatus(){
             string vivo = estaVivo() ? "Vivo" : "Morto";
@@ -73,6 +101,9 @@ class Jogador{
             cout << "Nome: " << getNome() << endl;
             cout << "Nível: " << getNivel() << endl;
             cout << "HP: " << getHPAtual() << "/" << getHPMax() << endl;
+            cout << "Experiência: " << getXP() << endl;
+            cout << "Força: " << getForca() <<endl;
+            cout << "Destreza: " << getDex() << endl;
             cout << vivo << endl;
         }
 
@@ -84,9 +115,11 @@ class Jogador{
         }
 
         void receberDano(int dano){
-            if(estaVivo() == true){ //já não está com validação?
+            if(dano <= 0){
+                return;
+            }
+            if(estaVivo()){
                 hpAtual -= dano;
-                
                 if(hpAtual < 0){
                     hpAtual = 0;
                 }
@@ -94,22 +127,43 @@ class Jogador{
         }
 
         void curar(int cura){
-            if(estaVivo() == true){ //como aplicar validação aqui?
+            if(cura <= 0){
+                return;
+            }
+            if(estaVivo()){
                 hpAtual += cura;
-
                 if(hpAtual > hpMax){
                     hpAtual = hpMax;
                 }
             }
         }
-
+    
         void experiencia(int quant){
-            //???????????
+            if(quant <= 0){
+                return;
+            }
+
+            setXP(getXP() + quant);
+            int aux = nivel * 100;
+
+            if(getXP() >= aux){
+                setLVUP(getLVUP() + 1);
+            }
         }
 
+        //fiz isso de exemplo, pois vamos mudar pra um esquema melhor
         void subirNivel(){
-            nivel++;
+            if(lvuppoints > 0){
+                nivel++;
+                setStatus(getForca() + 2, getDex() + 2);
+                hpMax += 100;
+                hpAtual = hpMax;
+                setLVUP(getLVUP() - 1);
+
+                cout << "Level Up!" << endl;
+            }
         }
+        
     };
 
-#endif
+#endif 
