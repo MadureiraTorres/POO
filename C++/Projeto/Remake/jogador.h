@@ -27,7 +27,7 @@ class Jogador {
             setLVUP(0);
         }
 
-        // destrutor virtual
+        // destrutor virtual — obrigatório para evitar vazamento com delete em ponteiro de base
         virtual ~Jogador() {
             cout << "[destrutor] " << nome << " destruído." << endl;
         }
@@ -60,7 +60,7 @@ class Jogador {
         void setStatus(int a, int b) { forca = a; dex = b; }
 
         // métodos
-        void exibirStatus() {
+        virtual void exibirStatus() {
             string vivo = estaVivo() ? "Vivo" : "Morto";
             cout << "Nome: "        << getNome()    << endl;
             cout << "Nível: "       << getNivel()   << endl;
@@ -91,7 +91,7 @@ class Jogador {
             int limiar = nivel * 100;
             if (getXP() >= limiar) {
                 setLVUP(getLVUP() + 1);
-                setXP(getXP() - limiar);  
+                setXP(getXP() - limiar);   // corrigido: desconta o limiar ao invés de acumular
             }
         }
 

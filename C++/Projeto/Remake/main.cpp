@@ -1,96 +1,57 @@
-#include "jogador.h"
+#include "jogador_factory.h"
+#include "item_factory.h"
 #include <vector>
+using namespace std;
 
-// ----- subclasses -----
-
-class Guerreiro : public Jogador {
-    public:
-        Guerreiro(const string &nm, int lv, int hp)
-            : Jogador(nm, lv, hp) {}
-
-        virtual ~Guerreiro() {
-            cout << "[destrutor] Guerreiro " << getNome() << " destruído." << endl;
-        }
-
-        // ataque físico: dano baseado em Força
-        void atacar(Jogador &alvo) override {
-            int dano = getForca() * 3;
-            cout << getNome() << " (Guerreiro) ataca " << alvo.getNome()
-                 << " causando " << dano << " de dano!" << endl;
-            alvo.receberDano(dano);
-        }
-};
-
-class Mago : public Jogador {
-    public:
-        Mago(const string &nm, int lv, int hp)
-            : Jogador(nm, lv, hp) {}
-
-        virtual ~Mago() {
-            cout << "[destrutor] Mago " << getNome() << " destruído." << endl;
-        }
-
-        // ataque mágico: dano baseado em Destreza
-        void atacar(Jogador &alvo) override {
-            int dano = getDex() * 5;
-            cout << getNome() << " (Mago) lança magia em " << alvo.getNome()
-                 << " causando " << dano << " de dano!" << endl;
-            alvo.receberDano(dano);
-        }
-};
-
-class Arqueiro : public Jogador {
-    public:
-        Arqueiro(const string &nm, int lv, int hp)
-            : Jogador(nm, lv, hp) {}
-
-        virtual ~Arqueiro() {
-            cout << "[destrutor] Arqueiro " << getNome() << " destruído." << endl;
-        }
-
-        // ataque à distância: dano misto
-        void atacar(Jogador &alvo) override {
-            int dano = (getForca() + getDex()) * 2;
-            cout << getNome() << " (Arqueiro) atira em " << alvo.getNome()
-                 << " causando " << dano << " de dano!" << endl;
-            alvo.receberDano(dano);
-        }
-};
-
-// ----- main -----
-
-int main() {
-
-    Guerreiro inimigo("Goblin", 1, 200);
+int main(){
+    // ── JogadorFactory ────────────────────────────────────────────────────────
+    cout << "=== Criando jogadores via JogadorFactory ===" << endl;
 
     vector<Jogador*> grupo;
-    grupo.push_back(new Guerreiro("Arthur",  2, 150));
-    grupo.push_back(new Mago    ("Merlin",   3, 80 ));
-    grupo.push_back(new Arqueiro("Legolas",  2, 100));
+    grupo.push_back(JogadorFactory::criarGuerreiro("Thorin",  "anão"));
+    grupo.push_back(JogadorFactory::criarMago     ("Legolas", "elfo"));
+    grupo.push_back(JogadorFactory::criarLadrao   ("Garret",  "humano"));
 
-    cout << "=== Status inicial do inimigo ===" << endl;
-    inimigo.exibirStatus();
-
-    cout << "\n=== Grupo ataca (polimorfismo) ===" << endl;
-
-    for (Jogador* j : grupo) {
-        j->atacar(inimigo);
-    }
-
-    cout << "\n=== Status do inimigo após ataques ===" << endl;
-    inimigo.exibirStatus();
-
-    cout << "\n=== Status do grupo ===" << endl;
-    for (Jogador* j : grupo) {
+    for(Jogador* j : grupo){
         j->exibirStatus();
         cout << endl;
     }
 
-    cout << "=== Liberando memória ===" << endl;
-    for (Jogador* j : grupo) {
-        delete j;
+    // ── ItemFactory ───────────────────────────────────────────────────────────
+    cout << "=== Criando itens via ItemFactory ===" << endl;
+
+    vector<Item*> loja;
+    loja.push_back(ItemFactory::criarArma    ("espada"));
+    loja.push_back(ItemFactory::criarArma    ("cajado"));
+    loja.push_back(ItemFactory::criarArmadura("pesada"));
+    loja.push_back(ItemFactory::criarArmadura("robe"));
+    loja.push_back(ItemFactory::criarPocao   ("grande"));
+    loja.push_back(ItemFactory::criarPocao   ("elixir"));
+
+    for(Item* i : loja){
+        i->descrever();
     }
-    grupo.clear();
+
+    // ── polimorfismo: grupo ataca inimigo ─────────────────────────────────────
+    cout << "\n=== Combate ===" << endl;
+    Guerreiro inimigo("Orc Selvagem", "orc");   // criado direto, sem factory
+    inimigo.exibirStatus();
+    cout << endl;
+
+    // ativa furtivo no ladrão antes de atacar
+    static_cast<Ladrao*>(grupo[2])->setFurtivo(true);
+
+    for(Jogador* j : grupo){
+        j->atacar(inimigo);
+    }
+
+    cout << "\n=== Status do inimigo após combate ===" << endl;
+    inimigo.exibirStatus();
+
+    // ── liberação de memória ──────────────────────────────────────────────────
+    cout << "\n=== Liberando memória ===" << endl;
+    for(Jogador* j : grupo) delete j;
+    for(Item*   i : loja)   delete i;
 
     return 0;
 }
